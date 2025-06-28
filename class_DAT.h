@@ -1,15 +1,17 @@
 #include "inclu.h"
-
+#pragma once
+bool readFromDatFileAndPrint(const char* filename);
 class DAT {
 private:
+   
+
+public:
     // 4字节包头 (小端序)
     unsigned char header[4];
     // 4字节包尾 (小端序)
     unsigned char footer[4];
     // 4字节包尾 (小端序)
-	unsigned char crc[4]; // CRC校验码 (可选)
-
-public:
+    unsigned char crc[4]; // CRC校验码 (可选)
     // 默认构造函数：初始化为全0
     DAT();
 
@@ -32,6 +34,5 @@ public:
     // 打印包头包尾 (调试用)
     void print() const;
 
-    // 从.dat文件读取包头和包尾，并输出到屏幕
-    bool readFromDatFileAndPrint(const char* filename);
+ 
 };

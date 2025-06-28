@@ -5,14 +5,13 @@ int main() {
 
   
 	dat.setHeaderFromUint32(0x12345678); // 存储为 78 56 34 12);
-    // 方法2：从32位整数设置 (小端序)
-	dat.setFooterFromUint32(0xABCDEF1);   // 存储为 1F EF CD AB);
+	dat.setFooterFromUint32(0xABCDEF1E);   // 存储为 1E EF CD AB);
 	dat.setCrcFromUint32(0xBCDEF123);  // 存储为 23 F1 DE BC);
-    // 打印验证
+   
     std::cout << "DAT content before writing:\n";
     dat.print();
 
-    // 写入.dat文件
+    
     const char* filename = "output.dat";
     if (dat.writeToDatFile(filename)) {
         std::cout << "Successfully created " << filename << "\n";
@@ -28,6 +27,6 @@ int main() {
     }
 	// 读取并打印.dat文件内容
 	std::cout << "Reading from file and printing content:\n";
-    bool a = dat.readFromDatFileAndPrint("output.dat");
+    bool a = readFromDatFileAndPrint("output.dat");
     return 0;
 }

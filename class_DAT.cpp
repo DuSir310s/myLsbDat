@@ -98,7 +98,10 @@
      std::cout << "\n";
  }
  // 从.dat文件读取包头和包尾，并输出到屏幕
- bool DAT::readFromDatFileAndPrint(const char* filename) {
+
+
+ bool readFromDatFileAndPrint(const char* filename) {
+     DAT rdDat;
      std::ifstream file(filename, std::ios::binary);
      if (!file.is_open()) {
          std::cerr << "Error: Failed to open file " << filename << "\n";
@@ -106,23 +109,25 @@
      }
 
      // 读取包头
-
-     file.read((char*)header, sizeof(header));
-     if (file.gcount() != sizeof(header)) {
+     file.read((char*)rdDat.header, sizeof(rdDat.header));
+     if (file.gcount() != sizeof(rdDat.header)) {
          std::cerr << "Error: Failed to read header from file " << filename << "\n";
          file.close();
          return false;
      }
 
      // 读取包尾
-     file.read((char*)(footer), sizeof(footer));
-     if (file.gcount() != sizeof(footer)) {
+	  
+     file.read((char*)(rdDat.footer), sizeof(rdDat.footer));
+     if (file.gcount() != sizeof(rdDat.footer)) {
          std::cerr << "Error: Failed to read footer from file " << filename << "\n";
          file.close();
          return false;
      }
-     file.read((char*)(crc), sizeof(crc));
-     if (file.gcount() != sizeof(crc)) {
+
+     //读取校验和
+     file.read((char*)(rdDat.crc), sizeof(rdDat.crc));
+     if (file.gcount() != sizeof(rdDat.crc)) {
          std::cerr << "Error: Failed to read CRC from file " << filename << "\n";
          file.close();
          return false;
@@ -130,6 +135,6 @@
      file.close();
 
      // 输出内容
-     print();
+     rdDat.print();
      return true;
  }
